@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bai Sun's Homepage</title>
+    <!-- Use a warm sans-serif fallback font stack similar to Cereal -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        :root {
+            --palette-bg-primary-core: #ff385c;
+            --palette-bg-tertiary-core: #e00b41;
+            --palette-text-primary: #222222;
+            --palette-text-secondary: #6a6a6a;
+            --palette-bg-page: #f7f7f9;
+            --palette-bg-card: #ffffff;
+            --palette-bg-light: #f2f2f2;
+            --shadow-card: rgba(0,0,0,0.02) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 2px 6px, rgba(0,0,0,0.1) 0px 4px 8px;
+            --shadow-hover: rgba(0,0,0,0.08) 0px 4px 12px;
+            --radius-card: 20px;
+            --radius-btn: 8px;
+            --radius-badge: 14px;
+            --radius-large: 32px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-image: url('images/bg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center center;
+            background-color: var(--palette-bg-page);
+            color: var(--palette-text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', Roboto, 'Helvetica Neue', sans-serif;
+            line-height: 1.43;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 60px auto 40px;
+            display: flex;
+            gap: 32px;
+            position: relative;
+            z-index: 1;
+            padding: 0 24px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 320px;
+            flex-shrink: 0;
+            background: var(--palette-bg-card);
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-card);
+            padding: 32px;
+            position: sticky;
+            top: 32px;
+            align-self: flex-start;
+        }
+
+        .sidebar-avatar {
+            width: 100%;
+            aspect-ratio: 3/4; /* Portrait */
+            object-fit: cover;
+            border-radius: var(--radius-card);
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .sidebar-name-en {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.44px;
+            color: var(--palette-text-primary);
+            line-height: 1.2;
+        }
+
+        .sidebar-name-cn {
+            font-size: 16px;
+            color: var(--palette-text-secondary);
+            margin-top: 4px;
+            margin-bottom: 16px;
+        }
+
+        .sidebar-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--palette-text-primary);
+            margin-bottom: 24px;
+        }
+
+        .sidebar-info p {
+            font-size: 14px;
+            color: var(--palette-text-secondary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-info i {
+            color: var(--palette-bg-primary-core);
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-info a {
+            color: var(--palette-text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .sidebar-info a:hover {
+            color: var(--palette-bg-primary-core);
+            text-decoration: underline;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #ebebeb;
+            justify-content: center;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--palette-bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--palette-text-primary);
+            font-size: 18px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .social-links a:hover {
+            background: var(--palette-text-primary);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .card {
+            background: var(--palette-bg-card);
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-card);
+            padding: 40px;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.44px;
+            color: var(--palette-text-primary);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .about-text {
+            font-size: 16px;
+            color: var(--palette-text-secondary);
+            margin-bottom: 16px;
+        }
+        
+        .about-text strong {
+            color: var(--palette-text-primary);
+            font-weight: 600;
+        }
+
+        .about-text a {
+            color: var(--palette-text-primary);
+            font-weight: 500;
+            text-decoration: underline;
+            text-decoration-color: #ddd;
+            text-underline-offset: 2px;
+        }
+        .about-text a:hover {
+            color: var(--palette-bg-primary-core);
+            text-decoration-color: var(--palette-bg-primary-core);
+        }
+
+        .highlight-box {
+            background: #fff4f6;
+            border-radius: var(--radius-badge);
+            padding: 20px;
+            margin-top: 24px;
+            border-left: 4px solid var(--palette-bg-primary-core);
+        }
+        .highlight-box p {
+            color: var(--palette-text-primary);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .highlight-box a {
+            color: var(--palette-bg-primary-core);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* Compact News */
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 280px;
+            overflow-y: auto;
+            padding-right: 16px;
+        }
+        .news-list::-webkit-scrollbar { width: 6px; }
+        .news-list::-webkit-scrollbar-track { background: transparent; }
+        .news-list::-webkit-scrollbar-thumb { background: #ddd; border-radius: 3px; }
+        .news-list::-webkit-scrollbar-thumb:hover { background: #bbb; }
+
+        .news-item {
+            display: flex;
+            gap: 16px;
+            font-size: 14px;
+            padding: 12px;
+            border-radius: var(--radius-btn);
+            background: var(--palette-bg-light);
+            transition: background 0.2s;
+        }
+        .news-item:hover {
+            background: #fdfdfd;
+            box-shadow: var(--shadow-card);
+        }
+        .news-date {
+            font-weight: 600;
+            color: var(--palette-bg-primary-core);
+            flex-shrink: 0;
+        }
+        .news-content {
+            color: var(--palette-text-primary);
+        }
+        .news-content a {
+            color: var(--palette-bg-primary-core);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Educations & Internships */
+        .exp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .exp-item {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            padding: 16px;
+            border-radius: var(--radius-badge);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: box-shadow 0.2s;
+        }
+        .exp-item:hover {
+            box-shadow: var(--shadow-card);
+        }
+        .exp-logo {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: #fff;
+            padding: 4px;
+            border: 1px solid #f0f0f0;
+        }
+        .exp-details h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--palette-text-primary);
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+        .exp-details p {
+            font-size: 13px;
+            color: var(--palette-text-secondary);
+        }
+        .exp-details .time-period {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+        .exp-details a {
+            color: var(--palette-text-primary);
+            text-decoration: underline;
+            text-decoration-color: #ddd;
+        }
+
+        /* Compact Publications (List style matching Cohere) */
+        .publications-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .pub-item {
+            display: flex;
+            gap: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            align-items: flex-start;
+        }
+        .pub-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .pub-image {
+            width: 180px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: var(--radius-btn);
+            border: 1px solid rgba(0,0,0,0.05);
+            flex-shrink: 0;
+            box-shadow: var(--shadow-card);
+        }
+        .pub-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-grow: 1;
+        }
+        .pub-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--palette-text-primary);
+            line-height: 1.3;
+        }
+        .pub-authors {
+            font-size: 14px;
+            color: var(--palette-text-secondary);
+            line-height: 1.4;
+        }
+        .pub-authors strong {
+            color: var(--palette-text-primary);
+            font-weight: 600;
+        }
+        .pub-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 4px;
+        }
+        .pub-venue {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 10px;
+            background: var(--palette-bg-light);
+            color: var(--palette-text-primary);
+            border-radius: var(--radius-btn);
+            letter-spacing: 0.3px;
+        }
+        .pub-links {
+            display: flex;
+            gap: 12px;
+        }
+        .pub-links a {
+            color: var(--palette-text-primary);
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .pub-links a:hover {
+            color: var(--palette-bg-primary-core);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--palette-text-secondary);
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .main-container {
+                flex-direction: column;
+                margin-top: 40px;
+            }
+            .sidebar {
+                width: 100%;
+                position: static;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .sidebar-avatar {
+                width: 200px;
+                height: 266px;
+            }
+            .sidebar-info p {
+                justify-content: center;
+            }
+            .social-links {
+                justify-content: center;
+            }
+            .exp-grid {
+                grid-template-columns: 1fr;
+            }
+            .pub-item {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .pub-image {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 16/9;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <img src="images/baisun.png" alt="Bai Sun Avatar" class="sidebar-avatar">
+            <h1 class="sidebar-name-en">Bai Sun</h1>
+            <p class="sidebar-name-cn">(孙柏)</p>
+            <p class="sidebar-title">Incoming PhD in Computer Science</p>
+            
+            <div class="sidebar-info">
+                <p><i class="fas fa-university"></i> Westlake University</p>
+                <p><i class="fas fa-map-marker-alt"></i> Hangzhou, Zhejiang, China</p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:baisun89@outlook.com">baisun89@outlook.com</a></p>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://scholar.google.com/citations?hl=en&user=LPbZ54wAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i></a>
+                <a href="https://github.com/SIYIQ" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="#" id="wechat-btn"><i class="fab fa-weixin"></i></a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+
+            <!-- About -->
+            <div class="card">
+                <h2>About me</h2>
+                <p class="about-text">
+                    My name is <strong>Bai Sun (孙柏)</strong>, currently an undergraduate student at Sun Yet-sen University (graduating Fall 2027) and incoming PhD student at Westlake University. 
+                </p>
+                
+                <p class="about-text">
+                    I am currently a research intern at the <a href="https://damo.alibaba.com/">Alibaba DAMO Academy</a>. My research interests lie in <strong>Medical Image Analysis and Spatial Omics</strong>.
+                </p>
+                <!-- <div class="highlight-box"> -->
+                    <!-- <p>I am currently seeking <strong>Industry Roles or Startup Opportunities</strong> (graduating Fall 2027). I’d be happy to connect via WeChat or Email.</p> -->
+                <!-- </div> -->
+            </div>
+
+            <!-- News -->
+            <div class="card">
+                <h2>News</h2>
+                <div class="news-list">
+                    <div class="news-item">
+                        <span class="news-date">2026.09</span>
+                        <span class="news-content">🎉🎉 One paper is accepted by NeurIPS 2026.</span>
+                    </div>
+                    <div class="news-item">
+                        <span class="news-date">2025.06</span>
+                        <span class="news-content">🎉🎉 One paper is early accepted by MICCAI 2025.</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Education -->
+            <div class="card">
+                <h2>Education</h2>
+                <div class="exp-grid">
+                    <div class="exp-item">
+                        <img src="images/Schools/Westlake.png" alt="Westlake Logo" class="exp-logo">
+                        <div class="exp-details">
+                            <h3>Incoming PhD @ Westlake University</h3>
+                            <p class="time-period">2027 - 2032 (expected)</p>
+                            <p>Supervisor: <a href="https://scholar.google.com/citations?hl=en&user=KqT-u6wAAAAJ">Haoyang Li</a></p>
+                        </div>
+                    </div>
+                    <div class="exp-item">
+                        <img src="images/Schools/SYSU.jpg" alt="SYSU Logo" class="exp-logo">
+                        <div class="exp-details">
+                            <h3>Undergrad @ Sun Yat-sen University</h3>
+                            <p class="time-period">2023 - 2027</p>
+                            <!-- <p>Supervisor: <a href="https://www.cs.cmu.edu/~xiaodan1/">Xiaodan Liang</a></p> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Internships -->
+            <div class="card">
+                <h2>Internships</h2>
+                <div class="exp-grid">
+                    <div class="exp-item">
+                        <img src="images/Damo.png" alt="Tencent Logo" class="exp-logo">
+                        <div class="exp-details">
+                            <h3>Research Intern @ Alibaba, DAMO Academy</h3>
+                            <p class="time-period">2024.09 - 2025.06</p>
+                            <p>Mentor: <a href="https://geyuying.github.io/">Yuying Ge</a></p>
+                        </div>
+                    </div>
+
+                    <div class="exp-item">
+                        <img src="images/Westlake.png" alt="Westlake Logo" class="exp-logo">
+                        <div class="exp-details">
+                            <h3>Visiting Student @ Westlake University</h3>
+                            <p class="time-period">2025.07 - Present</p>
+                            <p>Mentor: <a href="https://liang-hou.github.io/">Haoyang Li</a>, <a href="https://www.xtao.website/">Xin Tao</a></p>
+                        </div>
+                    </div>
+
+
+                    <!-- <div class="exp-item">
+                        <img src="images/Lenovo.png" alt="Lenovo Logo" class="exp-logo">
+                        <div class="exp-details">
+                            <h3>Research Intern @ Lenovo Research</h3>
+                            <p class="time-period">2023.09 - 2024.08</p>
+                        </div>
+                    </div>
+                    <div class="exp-item">
+                        <img src="images/cibr.png" alt="CIBR Logo" class="exp-logo">
+                        <div class="exp-details">
+                            <h3>Research Intern @ CIBR</h3>
+                            <p class="time-period">2023.03 - 2023.08</p>
+                            <p>Mentor: <a href="https://brain.bnu.edu.cn/">Yunzhe Liu</a></p>
+                        </div>
+                    </div> -->
+
+                </div>
+            </div>
+
+            <!-- Publications -->
+            <div class="card">
+                <h2>Selected Publications</h2>
+                <div class="publications-list">
+                    
+
+
+                    <div class="pub-item">
+                        <img src="images/publications/F.png" alt="F" class="pub-image" onerror="this.src='https://img.cdn1.vip/i/6ab9ff4206d5a_1790574402.webp'">
+                        <div class="pub-content">
+                            <h3 class="pub-title">Fractal-G: Continuous Grid-Graph-Grid Feature Reconstruction for Medical Image Segmentation</h3>
+                            <p class="pub-authors"><strong>Bai Sun</strong>, Zixuan Tang</p>
+                            <div class="pub-meta">
+                                <span class="pub-venue">NeueIPS 2026</span>
+                                <div class="pub-links">
+                                    <a href="https://arxiv.org/abs/2504.01014"><i class="fas fa-file-alt"></i> Paper</a>
+                                    <a href="https://github.com/TencentARC/AnimeGamer"><i class="fab fa-github"></i> Code</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pub-item">
+                        <img src="images/publications/MIBF.png" alt="MIBF" class="pub-image" onerror="this.src='https://img.cdn1.vip/i/6ab9ff3cea05e_1790574396.webp'">
+                        <div class="pub-content">
+                            <h3 class="pub-title">MIBF-Net: Multi-modal Information Balanced Fusion Network for Clinical Diagnosis via Patient Narratives and Lesion Image</h3>
+                            <p class="pub-authors">Zixuan Tang, <strong>Bai Sun</strong>, Shen Zhao, et al.</p>
+                            <div class="pub-meta">
+                                <span class="pub-venue">MICCAI 2025</span>
+                                <div class="pub-links">
+                                    <a href="https://arxiv.org/abs/2511.16669"><i class="fas fa-file-alt"></i> Paper</a>
+                                    <a href="https://github.com/KlingAIResearch/VANS"><i class="fab fa-github"></i> Code</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    <div class="footer">
+        &copy; 2026 Bai Sun.
+    </div>
+
+    <!-- WeChat Modal -->
+    <div id="wechat-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(4px);">
+        <div style="background: white; padding: 32px; border-radius: var(--radius-card); text-align: center; box-shadow: var(--shadow-card); max-width: 400px; width: 90%;">
+            <h3 style="margin-top: 0; color: var(--palette-text-primary); margin-bottom: 16px; font-size: 20px;">WeChat</h3>
+            <div style="margin: 20px 0; padding: 10px; background: var(--palette-bg-page); border-radius: var(--radius-badge);">
+                <img src="images/wechat-qr.png" alt="WeChat QR Code" style="width: 250px; height: 250px; object-fit: cover; border-radius: 8px;">
+            </div>
+            <p style="color: var(--palette-text-secondary); margin-bottom: 24px; font-size: 14px;">Scan to add me on WeChat</p>
+            <button id="close-modal" style="padding: 12px 32px; background: var(--palette-text-primary); color: white; border: none; border-radius: var(--radius-btn); cursor: pointer; font-size: 16px; font-weight: 500; transition: background 0.3s; width: 100%;">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const wechatBtn = document.getElementById('wechat-btn');
+        const wechatModal = document.getElementById('wechat-modal');
+        const closeModal = document.getElementById('close-modal');
+        
+        wechatBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            wechatModal.style.display = 'flex';
+        });
+        
+        closeModal.addEventListener('click', function() {
+            wechatModal.style.display = 'none';
+        });
+        
+        wechatModal.addEventListener('click', function(e) {
+            if (e.target === wechatModal) {
+                wechatModal.style.display = 'none';
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && wechatModal.style.display === 'flex') {
+                wechatModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
